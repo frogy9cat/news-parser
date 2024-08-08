@@ -3,9 +3,10 @@ import requests
 import json
 from datetime import datetime, timezone
 
+from config import API_KEY
 
 
-url = "https://newsapi.org/v2/everything?q=apple&from=2024-08-07&to=2024-08-07&sortBy=popularity&apiKey=f7abe08883c6489d881d5b98be2a16aa"
+url = f"https://newsapi.org/v2/everything?q=apple&from=2024-08-07&to=2024-08-07&sortBy=popularity&apiKey={API_KEY}"
 news = []
 
 response = requests.get(url).json()
@@ -28,13 +29,9 @@ for i in range(0, 12):
     DateTime_utc = DateTime.replace(tzinfo=timezone.utc).timestamp()
     new_article['DateTime_utc'] = DateTime_utc
 
-    # with open('result.json', '+a') as json_file:
-    #     writable = json.dumps(new_article)
-    #     json_file.write(writable)
     news.append(new_article)
 
-# all_news = {'news': f'{news}'}
-# print(all_news)
+
 with open('result.json', 'w+') as json_file:
     writable = json.dumps(news)
     json_file.write(writable)
